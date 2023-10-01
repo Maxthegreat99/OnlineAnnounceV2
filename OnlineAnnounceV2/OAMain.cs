@@ -66,6 +66,9 @@ namespace OnlineAnnounceV2
 
 		private void OnLogin(PlayerPostLoginEventArgs args)
 		{
+			if(args.Player == null)
+				return;
+
 			string greet = DB.SetInfo(args.Player);
 			if (!string.IsNullOrWhiteSpace(greet))
 				TSPlayer.All.SendMessage($"[{args.Player.Account.Name}] " + greet, config.ToColor());
@@ -73,6 +76,9 @@ namespace OnlineAnnounceV2
 
 		private void OnLogout(PlayerLogoutEventArgs args)
 		{
+			if (args.Player == null)
+				return;
+
 			string leave = args.Player.GetData<OAInfo>(OAString).leave;
 			if (!string.IsNullOrWhiteSpace(leave))
 				TSPlayer.All.SendMessage($"[{args.Player.Account.Name}] " + leave, config.ToColor());
